@@ -49,8 +49,7 @@ void vsegment::add_xref (vaddr start, vaddr referrer)
    xref_map.insert (i, vxref_map::value_type (start, referrer));
 }
 
-void vsegment::get_xref (vxref_map::iterator& begin,
-                         vxref_map::iterator& end, vaddr addr)
+void vsegment::get_xref (vxref_map::iterator& begin, vxref_map::iterator& end, vaddr addr)
 {
    vxref_map::iterator xend = xref_map.end ();
    begin = end = xref_map.lower_bound (addr);
@@ -68,17 +67,15 @@ void vsegment::_fill_gaps ()
    while (j != _map.end ()) {
       vaddr pend = (i++)->second->end ();
       vaddr nstart = (j++)->second->start ();
-      if (pend < nstart) {
-         vchunk* ch = new vgap (this, pend);
-         if (vchunk::is_valid_code (this, pend, nstart)) {
-            ch->set_dumper (new vdump_code ());
-            insert_code (ch);
-            ch->trace ();
-         } else {
-            ch->set_dumper (new vdump_data ());
-            insert_data (ch);
-         }
-      }
+      if (pend >= nstart)
+         continue;
+      vchunk* ch = new vgap (this, pend);
+      ch->set_dumper (new vdump_code ());
+      if (vchunk::is_valid_code (this, pend, nstart)) {
+         insert_code (ch);
+         ch->trace ();
+      } else
+         insert_data (ch);
    }
 }
 
@@ -175,11 +172,10 @@ void vsegment::mark_processed (vaddr start, vaddr end)
    vchunk_map::iterator i = _unprocessed_code.lower_bound (start);
 
    while (i != _unprocessed_code.end ()) {
-      //vchunk* chunk = **i;
       vchunk* chunk = i->second;
       vaddr cstart = chunk->start ();
 
-      // Break if were out of range.
+      // Break if we're out of range.
       if (cstart >= end)
          break;
 
