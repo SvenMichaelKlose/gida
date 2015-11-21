@@ -1,10 +1,4 @@
-// $Id$
-//
-// VGap dumper for vchunks.
-//
-// (c) 2002 Sven Klose <sven@devcon.net>
-//
-// About this file:
+// Copyright (c) 2002 Sven Michael Klose <sven@hugbox.org>
 //
 // vgap prints an extra label for unreferenced vchunks. This could be replaced
 // by a common reference map.
@@ -20,15 +14,16 @@
 #include "vgap.h"
 #include "vsegment.h"
 
-void vgap::dump ()
+void
+vgap::dump ()
 {
-   cout << "\n; !!! NOT REACHED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl
-        << ";" << endl
-        << "; The following " << end () - start ()
-        << " bytes are not accessed by any displayed code." << endl;
+    cout << "\n; !!! NOT REACHED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl
+         << ";" << endl
+         << "; The following " << end () - start ()
+         << " bytes are not accessed by any displayed code." << endl;
 
-   vchunk::dump ();
+    vchunk::dump ();
 
-   cout << "; !!! END OF GAP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        << endl << endl;
+    cout << "; !!! END OF GAP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+         << endl << endl;
 }

@@ -4,6 +4,6 @@
 #include <fstream>
 #include "vsegment.h"
 
-int config_read (vsegment& seg, istream& is);
+int config_read (vsegment & seg, istream & in);
 
 #endif

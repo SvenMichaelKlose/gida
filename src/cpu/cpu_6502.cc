@@ -312,7 +312,7 @@ struct operand_string {
 };
 
 // The one and only instance of cpu_6502.
-cpu_6502* cpu_6502::_instance;
+cpu_6502 * cpu_6502::_instance;
 
 const char *
 print_operand_string (struct operand_string * s, int addrmode)
@@ -324,7 +324,7 @@ print_operand_string (struct operand_string * s, int addrmode)
 }
 
 void
-disassemble_word_operand (vsegment* seg, vaddr operand)
+disassemble_word_operand (vsegment * seg, vaddr operand)
 {
     vchunk * ch = seg->find (operand);
 
@@ -337,9 +337,9 @@ disassemble_word_operand (vsegment* seg, vaddr operand)
 }
 
 void
-cpu_6502::disassemble (vsegment* seg, vaddr& pc)
+cpu_6502::disassemble (vsegment * seg, vaddr& pc)
 {
-    vimage* img = seg->image ();
+    vimage * img = seg->image ();
     unsigned int opcode = img->get (pc);
     struct instruction * i = &opcode_map[opcode];
     struct operand_string * s = operand_strings;
@@ -384,9 +384,10 @@ cpu_6502::disassemble (vsegment* seg, vaddr& pc)
 // v   Instruction descriptor.
 // seg Program segment to use.
 // pc  Program counter
-void cpu_6502::get_vop (vop& v, vsegment* seg, vaddr& pc)
+void
+cpu_6502::get_vop (vop& v, vsegment * seg, vaddr& pc)
 {
-    vimage* img = seg->image ();
+    vimage * img = seg->image ();
     unsigned int opcode = img->get (pc);
     struct instruction * i = &opcode_map[opcode];
 
@@ -408,9 +409,10 @@ void cpu_6502::get_vop (vop& v, vsegment* seg, vaddr& pc)
 // v   Instruction descriptor.
 // seg Program segment to use.
 // pc  Program counter
-void cpu_6502::analyze (vop& v, vsegment* seg, vaddr& pc)
+void
+cpu_6502::analyze (vop& v, vsegment * seg, vaddr& pc)
 {
-    vimage* img = seg->image ();
+    vimage * img = seg->image ();
     vaddr strt = pc;
     get_vop (v, seg, strt);
     unsigned int opcode = img->get (pc);
@@ -447,7 +449,8 @@ void cpu_6502::analyze (vop& v, vsegment* seg, vaddr& pc)
 }
 
 // Return pointer to one and only instance of this class.
-cpu_6502* cpu_6502::instance ()
+cpu_6502 *
+cpu_6502::instance ()
 {
    if (_instance)
        return _instance;

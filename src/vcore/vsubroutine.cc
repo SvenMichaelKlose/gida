@@ -1,10 +1,6 @@
-// $Id$
+// Copyright (c) 2002 Sven Klose <sven@devcon.net>
 //
 // Virtual subroutine vchunk.
-//
-// (c) 2002 Sven Klose <sven@devcon.net>
-//
-// About this file:
 //
 // This vchunk prints extra comments for its subroutne vchunk.
 
@@ -22,16 +18,16 @@
 
 int vsubroutine::_num_subs = 0;
 
-vsubroutine::vsubroutine (vsegment* seg, vaddr start)
-   : vcode (seg, start)
+vsubroutine::vsubroutine (vsegment * seg, vaddr start) : vcode (seg, start)
 {
 }
 
-void vsubroutine::dump ()
+void
+vsubroutine::dump ()
 {
-   cout << "\n"
-        << "; ### SUBROUTINE #############################################\n"
-        << ";" << endl;
+    cout << "\n"
+         << "; ### SUBROUTINE #############################################\n"
+         << ";" << endl;
 
-   vchunk::dump ();
+    vchunk::dump ();
 }

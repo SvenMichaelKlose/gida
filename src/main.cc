@@ -15,19 +15,22 @@
 #include "cpu_6502.h"
 #include "cpu_6800.h"
 
-void print_version ()
+void
+print_version ()
 {
     cout << PACKAGE << " interactive disassembler version " << VERSION << endl;
 }
 
-void print_help ()
+void
+print_help ()
 {
     print_version ();
     cout << "Usage: " << PACKAGE << " [-6502|-6802] MYROM.BIN <MYROM.CONF" << endl;
     exit (-1);
 }
 
-int main (int argc, char** argv)
+int
+main (int argc, char** argv)
 {
     bool no_trace = false;
     bool no_unreached_code = false;

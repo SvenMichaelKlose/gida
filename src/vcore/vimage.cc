@@ -1,10 +1,6 @@
-// $Id$
+// Copyright (c) 20002 Sven Klose <sven@devcon.net>
 //
 // Virtual binary image.
-//
-// (c) 20002 Sven Klose <sven@devcon.net>
-//
-// About this file:
 //
 // vimage holds a binary and provides machine-independet accessors.
 
@@ -23,20 +19,20 @@
 #include "vsubroutine.h"
 
 // Read in raw image and set CPU type.
-vimage::vimage (fstream& infile, vaddr offset)
+vimage::vimage (fstream & infile, vaddr offset)
 {
-   _image = new char[6553600];
-   vaddr p = offset;
-   char c;
-   while (!infile.eof ()) {
-      infile.get (c);
-      _image[p++] = c;
-   }
-   _start = offset;
-   _end = p - 1;
+    _image = new char[6553600];
+    vaddr p = offset;
+    char c;
+    while (!infile.eof ()) {
+        infile.get (c);
+        _image[p++] = c;
+    }
+    _start = offset;
+    _end = p - 1;
 }
 
 vimage::~vimage ()
 {
-   delete _image;
+    delete _image;
 }

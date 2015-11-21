@@ -1,3 +1,5 @@
+// Copyright (c) 2002 Sven Michael Klose <pixel@hugbox.org>
+
 #ifndef _VSUBROUTINE_H
 #define _VSUBROUTINE_H
 
@@ -8,9 +10,8 @@ class vcpu;
 
 // A vchunk is a piece of segment containing code or data.
 class vsubroutine : public vcode {
-
    public:
-      vsubroutine (vsegment* segment, vaddr start);
+      vsubroutine (vsegment * segment, vaddr start);
 
       void dump ();
 

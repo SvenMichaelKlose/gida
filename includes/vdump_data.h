@@ -1,3 +1,5 @@
+// Copyright (c) 2002 Sven Michael Klose <pixel@hugbox.org>
+
 #ifndef _VDUMP_DATA_H
 #define _VDUMP_DATA_H
 
@@ -5,15 +7,11 @@
 
 // A vchunk is a piece of segment containing data or data.
 class vdump_data : public vdump {
+    public:
+        inline vdump_data () : vdump () {}
 
-   public:
-      inline vdump_data () : vdump () {}
-
-      void dump (vchunk* chunk);
-      void label (vchunk* chunk)
-      {
-         dump_dataref (chunk);
-      }
+        void dump (vchunk * chunk);
+        void label (vchunk * chunk) { dump_dataref (chunk); }
 };
 
 #endif

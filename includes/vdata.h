@@ -1,3 +1,5 @@
+// Copyright (c) 2002 Sven Michael Klose <pixel@hugbox.org>
+
 #ifndef _VDATA_H
 #define _VDATA_H
 
@@ -8,9 +10,8 @@ class vcpu;
 
 // A vchunk is a piece of segment containing code or data.
 class vdata : public vchunk {
-
-   public:
-      vdata (vsegment* segment, unsigned long start);
+    public:
+        vdata (vsegment * segment, unsigned long start);
 };
 
 #endif
