@@ -11,7 +11,7 @@ class cpu_6502 : public vcpu {
         static cpu_6502* instance ();
 
         const char* name () { return "6502"; }
-        const char* vendor () { return "Motorola"; }
+        const char* vendor () { return "MOS Technology"; }
         const char* classtype ()
         {
             return "Micro processor (8 bit/64k address space)";

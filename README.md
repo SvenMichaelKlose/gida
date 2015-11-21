@@ -10,10 +10,12 @@ GIDA can only code for the Motorola 6802 CPU for which it
 Try gida with the ROM, ripped from an ancient coke machine:
 
 ```
-# gida rom.bin <rom.conf >rom.asm
+# gida -6802 rom.bin <rom.conf >rom.asm
 ```
 
 Enjoy!
+
+Support for the MOS Technology 6502 CPU is under contruction.
 
 # Building
 
