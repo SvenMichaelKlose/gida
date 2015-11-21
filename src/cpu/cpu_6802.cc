@@ -239,11 +239,14 @@ void cpu_6802::disassemble_operand (vsegment* seg, vaddr& pc,
     vchunk* ch;
     vaddr tmp;
 
+    if (mode == implied)
+        return;
+
+    cout << " ";
     switch (mode) {
         case direct:
             operand = img->get (pc);
             ch = seg->find (operand);
-            cout << " ";
             if (ch)
                ch->dumper ()->label (ch);
             else {
@@ -255,7 +258,6 @@ void cpu_6802::disassemble_operand (vsegment* seg, vaddr& pc,
         case indexed:
             operand = img->get (pc);
             ch = seg->find (operand);
-            cout << " ";
             if (ch)
                ch->dumper ()->label (ch);
             else {
@@ -267,14 +269,14 @@ void cpu_6802::disassemble_operand (vsegment* seg, vaddr& pc,
 
         case immediate8:
             operand = img->get (pc);
-            cout << " #$";
+            cout << "#$";
             vdump::dump_hexbyte (operand);
             break;
 
         case immediate16:
             operand = img->get_word (pc);
             ch = seg->find (operand);
-            cout << " #";
+            cout << "#";
             if (ch) {
                ch->dumper ()->label (ch);
                tmp = ch->start ();
@@ -294,7 +296,6 @@ void cpu_6802::disassemble_operand (vsegment* seg, vaddr& pc,
         case extended:
             operand = img->get_word (pc);
             ch = seg->find (operand);
-            cout << " ";
             if (ch)
                ch->dumper ()->label (ch);
             else {
@@ -310,12 +311,9 @@ void cpu_6802::disassemble_operand (vsegment* seg, vaddr& pc,
             if (ch)
                ch->dumper ()->label (ch);
             else {
-               cout << " $";
+               cout << "$";
                vdump::dump_hexword (operand);
             }
-            break;
-
-         case implied:
             break;
     }
 }
