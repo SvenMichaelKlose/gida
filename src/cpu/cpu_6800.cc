@@ -1,13 +1,4 @@
-// 6802 CPU support
-//
-// (c) 2002 Sven Klose <sven@devcon.net> 2002/04/16
-//
-// About this file:
-//
-// This file contains a virtual CPU for disassembly of binaries that run on
-// Motorola 6802 micro controllers.
-//
-// See also: ftp://ftp.comlab.ox.ac.uk/pub/Cards/txt/6802.txt
+// Copyright (c) 2002,2015 Sven Klose <sven@devcon.net> 2002/04/16
 
 using namespace std;
 
@@ -21,10 +12,10 @@ using namespace std;
 #include "vdata.h"
 #include "vsegment.h"
 #include "vsubroutine.h"
-#include "cpu_6802.h"
+#include "cpu_6800.h"
 
-// The one and only instance of cpu_6802.
-cpu_6802* cpu_6802::_instance;
+// The one and only instance of cpu_6800.
+cpu_6800* cpu_6800::_instance;
 
 //////////////////////////////////////////////////////////////////////
 
@@ -38,7 +29,7 @@ const unsigned char opcode_rti = 0x3b;
 const unsigned char opcode_rts = 0x39;
 
 // List of descriptors for all instructions.
-const cpu_6802_inst instab[] = {
+const cpu_6800_inst instab[] = {
      { "ABA ", 0x1b, g_implied },
      { "ADCA", 0xb9, g_immediate8 },
      { "ADCB", 0xf9, g_immediate8 },
@@ -163,19 +154,19 @@ const cpu_6802_inst instab[] = {
 };
 
 // Opcode descriptor.
-typedef struct _cpu_6802_opcode {
+typedef struct _cpu_6800_opcode {
    const char* mnem;    // Mnemonic
-   cpu_6802_adrmode mode; // Addressing mode
+   cpu_6800_adrmode mode; // Addressing mode
    int datatype;
-} cpu_6802_opcode;
+} cpu_6800_opcode;
 
 // Opcode descriptor map.
-cpu_6802_opcode opcodemap[256];
+cpu_6800_opcode opcodemap[256];
 
 //////////////////////////////////////////////////////////////////////
 
 // Create opcode for each addressing mode in group.
-void cpu_6802::create_opcode (const cpu_6802_inst* d)
+void cpu_6800::create_opcode (const cpu_6800_inst* d)
 {
     const char* mnem = d->mnem;
     const unsigned char op = d->opcode;
@@ -216,20 +207,20 @@ void cpu_6802::create_opcode (const cpu_6802_inst* d)
 }
 
 // Initialise. Create map of all opcodes.
-cpu_6802::cpu_6802 ()
+cpu_6800::cpu_6800 ()
 {
    // Mark all opcodes as invalid.
    for (int i = 0; i < 256; i++)
       opcodemap[i].mnem = 0;
 
    // Create opcode descriptors for each instruction.
-   int instructions = sizeof (instab) / sizeof (cpu_6802_inst);
+   int instructions = sizeof (instab) / sizeof (cpu_6800_inst);
    for (int i = 0; i < instructions; i++)
       create_opcode (&instab[i]);
 }
 
-void cpu_6802::disassemble_operand (vsegment* seg, vaddr& pc,
-                                    cpu_6802_adrmode mode)
+void cpu_6800::disassemble_operand (vsegment* seg, vaddr& pc,
+                                    cpu_6800_adrmode mode)
 {
     vimage* img = seg->image ();
     unsigned char l;
@@ -319,12 +310,12 @@ void cpu_6802::disassemble_operand (vsegment* seg, vaddr& pc,
 }
 
 // Disassemble to plain text line.
-void cpu_6802::disassemble (vsegment* seg, vaddr& pc)
+void cpu_6800::disassemble (vsegment* seg, vaddr& pc)
 {
     vimage* img = seg->image ();
     unsigned char c = img->get (pc);
 
-    cpu_6802_opcode* opcode = &opcodemap[c];
+    cpu_6800_opcode* opcode = &opcodemap[c];
 
     // Print byte constant if opcode is invalid.
     if (opcode->mnem == 0) {
@@ -347,13 +338,13 @@ void cpu_6802::disassemble (vsegment* seg, vaddr& pc)
 // v   Instruction descriptor.
 // seg Program segment to use.
 // pc  Program counter
-void cpu_6802::get_vop (vop& v, vsegment* seg, vaddr& pc)
+void cpu_6800::get_vop (vop& v, vsegment* seg, vaddr& pc)
 {
    vimage* img = seg->image ();
    unsigned char c;
 
    c = img->get (pc);
-   cpu_6802_opcode* opcode = &opcodemap[c];
+   cpu_6800_opcode* opcode = &opcodemap[c];
 
    if (opcode->mnem == 0)
       return;
@@ -394,7 +385,7 @@ void cpu_6802::get_vop (vop& v, vsegment* seg, vaddr& pc)
 // v   Instruction descriptor.
 // seg Program segment to use.
 // pc  Program counter
-void cpu_6802::analyze (vop& v, vsegment* seg, vaddr& pc)
+void cpu_6800::analyze (vop& v, vsegment* seg, vaddr& pc)
 {
    vimage* img = seg->image ();
    vaddr strt = pc;
@@ -404,7 +395,7 @@ void cpu_6802::analyze (vop& v, vsegment* seg, vaddr& pc)
    unsigned char c;
 
    c = img->get (pc);
-   cpu_6802_opcode* opcode = &opcodemap[c];
+   cpu_6800_opcode* opcode = &opcodemap[c];
 
    if (v.is_invalid ())
       return;
@@ -455,14 +446,9 @@ void cpu_6802::analyze (vop& v, vsegment* seg, vaddr& pc)
 }
 
 // Return pointer to one and only instance of this class.
-cpu_6802* cpu_6802::instance ()
+cpu_6800* cpu_6800::instance ()
 {
    if (_instance)
       return _instance;
-   return _instance = new cpu_6802 ();
-}
-
-const char* cpu_6802::name ()
-{
-   return "6802";
+   return _instance = new cpu_6800 ();
 }

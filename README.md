@@ -2,7 +2,7 @@
 
 gida is a tracing disassembler written in C++.
 
-GIDA can only code for the Motorola 6802 CPU for which it
+GIDA can only code for the MOS Technology 6800 CPU for which it
 
 - finds code that is probably executed
 - recognises subroutines
@@ -10,7 +10,7 @@ GIDA can only code for the Motorola 6802 CPU for which it
 Try gida with the ROM, ripped from an ancient coke machine:
 
 ```
-# gida -6802 rom.bin <rom.conf >rom.asm
+# gida -6800 rom.bin <rom.conf >rom.asm
 ```
 
 Enjoy!

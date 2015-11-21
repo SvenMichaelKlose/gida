@@ -13,7 +13,7 @@
 #include "vcpu.h"
 #include "vsegment.h"
 #include "cpu_6502.h"
-#include "cpu_6802.h"
+#include "cpu_6800.h"
 
 void print_version ()
 {
@@ -42,8 +42,8 @@ int main (int argc, char** argv)
    for (a = 1; a < argc; a++) {
        if (!strcmp (argv[a], "-6502"))
           cpu = cpu_6502::instance ();
-       else if (!strcmp (argv[a], "-6802"))
-          cpu = cpu_6802::instance ();
+       else if (!strcmp (argv[a], "-6800"))
+          cpu = cpu_6800::instance ();
        else
           break;
    }
