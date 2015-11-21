@@ -5,30 +5,6 @@
 #include "vdata.h"
 #include "config-read.h"
 
-int hex2int (string& str)
-{
-   string s = str.substr (0, 2);
-   if (s.compare ("0x"))
-      return atoi (str.c_str ());
-
-   s = str.substr (2, string::npos);
-   int l = s.length ();
-   int r = 0;
-   int i = 0;
-   while (l--) {
-      r <<= 4;
-      char c = s.at (i);
-      if (c > 'a' - 1 && c < 'f' + 1)
-         r += c + 10 - 'a';
-      else if (c > 'A' - 1 && c < 'F' + 1)
-         r += c + 10 - 'A';
-      else
-         r += c - '0';
-      i++;
-   }
-   return r;
-}
-
 int config_read (vsegment& seg, istream& is)
 {
    int c;
@@ -52,9 +28,9 @@ int config_read (vsegment& seg, istream& is)
       is.putback (c);
 
       is >> type;
-      is >> addr;
+      vaddr a;
+      is >> std::hex >> a;
       is >> name;
-      vaddr a = hex2int (addr);
 
       // Get type.
       int l = type.length ();
