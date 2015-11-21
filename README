@@ -1,23 +1,21 @@
-Welcome to the GNU Interactive Disassembler project.
-
-What is GIDA?
-=============
+# What is GIDA?
 
 gida is a tracing disassembler written in C++.
 
 GIDA can only code for the Motorola 6802 CPU for which it
 
-    - finds code that is probably executed
-    - recognises subroutines
+- finds code that is probably executed
+- recognises subroutines
 
 Try gida with the ROM, ripped from an ancient coke machine:
 
-	# gida rom.bin <rom.conf >rom.asm
+```
+# gida rom.bin <rom.conf >rom.asm
+```
 
 Enjoy!
 
-The virtual chunk model
-=======================
+# The virtual chunk model
 
 Binaries are traced to set up a list of 'vchunk's. Each vchunk contains a
 code or data address, an optional user-defined name for its label, and a
@@ -35,8 +33,7 @@ extra comments.
 The vchunk class provides machine independent function to test and trace
 chunks.
 
-Virtual CPU
-===========
+# Virtual CPU
 
 You must add a new virtual CPU to support a new processor.
 A vcpu generates a 'vop's of particular instructions or inserts new 'vchunk's
@@ -44,24 +41,20 @@ a traced instruction accesses. Additionally it must be able to insert
 new vchunks to a segment if an instruction accesses it.
 Finally, a cpu must be able to generate intermediate instruction object (vop's).
 
-Displaying diassemblies
-=======================
+# Displaying diassemblies
 
 The vprint interface is used by vdump objects to output diassemblies.
 vprint provides functions to print code, data, labels, constants, comments and
 red tape in a particular format vdump doesn't need to know of.
 
-How to contribute
-=================
+# How to contribute
 
-The disassembler core is currently under construction along with ARM support.
 If you want to implement new CPU supprt, see the vop.h and vcpu.h files
 for starters.
 
-!!!!!!!!!! FOLLOWING IS JUST PLANNED STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Backtracing code
 
-Backtracing code
-================
+!!!!!!!!!! FOLLOWING IS JUST PLANNED STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Backtracing code is needed to recognize register arguments and jump tables.
 The virtual cpu needs to create a intermediate description of
@@ -71,6 +64,7 @@ objects that are linked to trees that can be traversed and executed.
 Let's take a look at the following real life example that needs recovery of
 a jump table's address:
 
+```
 chunkstart:
         ASLA           ; Multiply by two for word alignment.
         LDX  #D_9081   ; Load base of jump table.
@@ -97,6 +91,7 @@ D_9081:               ; XREFS: 9043
         FCB $90, $8d, $91
         FCC "8"
         ...
+```
 
 From the perspective of the disassembler the first problem occurs at the
 first LDX instruction which loads X with a value taken from a memory
@@ -105,6 +100,7 @@ former instructions until a code label is reached or all source values
 to calculate X is known. For simplicity let's assume that all vops are
 already built and we have the following operations: 
 
+```
 vassign (&reg_a, vconstant (0));
 
 chunkstart:
@@ -127,6 +123,7 @@ vassign (&reg_pc, &reg_s);
 
 vop_assign (&reg_pc, vref (vconstant (0), &reg_x), VR_WORD);
 vop_assign (&reg_pc, vref (vconstant (0), &reg_x), VR_WORD);
+```
 
 The operations were constructed the way shown above by the virtual cpu.
 Register objects were constructed before while new objects for
@@ -135,5 +132,3 @@ between a memory location and the last instruction that assigned a
 value to it. To get that information, the set of vops is traversed
 and the accessed references are linked to each other using a scoreboard
 algorithm.
-
-$Id$
