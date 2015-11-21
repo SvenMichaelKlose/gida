@@ -5,71 +5,83 @@
 #include "vdata.h"
 #include "config-read.h"
 
-int config_read (vsegment& seg, istream& is)
+void
+type_error (int line)
 {
-   int c;
-   int line = 0;
-   string type;
-   string addr;
-   string name;
+    cerr << "Unknown label type in config file at "
+         << "line " << line << ". Use 'c' for code, 'd' for data or "
+         << "'v' to make it a code vector." << endl;
+    exit (-1);
+}
 
-   while (is.good () && !is.eof ()) {
-      line++;
+void
+config_read_line (vsegment& seg, istream& in, int& line)
+{
+    int c;
+    string type;
+    string addr;
+    string name;
 
-      // Skip empty and comment lines.
-      c = is.get ();
-      if (c == '\n')
-         continue;
+    line++;
 
-      if (c == '#') {
-         is.ignore (4096, '\n');
-         continue;
-      }
-      is.putback (c);
+    // Skip empty and comment lines.
+    c = in.get ();
+    if (in.eof () || c == '\n')
+        return;
 
-      is >> type;
-      vaddr a;
-      is >> std::hex >> a;
-      is >> name;
+    if (c == '#') {
+        in.ignore (4096, '\n');
+        return;
+    }
+    in.putback (c);
 
-      // Get type.
-      int l = type.length ();
-      bool code = false;
-      bool data = false;
-      bool vec = false;
-      for (int i = 0; i < l; i++) {
-         c = type[i];
-         switch (c) {
-         case 'c':
+    in >> type;
+    vaddr a;
+    in >> std::hex >> a;
+    in >> name;
+
+    // Get type.
+    if (type.length () != 1)
+        type_error (line);
+
+    bool code = false;
+    bool data = false;
+    bool vec = false;
+    switch (type[0]) {
+        case 'c':
             code = true;
-            continue;
-         case 'd':
+            break;
+        case 'd':
             data = true;
-            continue;
-         case 'v':
+            break;
+        case 'v':
             vec = true;
             code = true;
-            continue;
-         default:
-            cerr << "Unknown label type in config file at "
-                 << "line " << line << ". Use 'c' for code, 'd' for data or "
-                 << "'v' to make it a code vector." << endl;
-            exit (-1);
-         }
-      }
-      if (vec) {
-         vdata* rv = new vdata (&seg, a);
-         rv->set_name ((char*) name.data ());
-         rv->set_datatype (2);
-         seg.insert_data (rv);
-         name.append ("_destination");
-         a = seg.image ()->get_word (a);
-      }
-      vcode* rv = new vcode (&seg, a);
-      rv->set_name ((char*) name.data ());
-      rv->set_datatype (2);
-      seg.insert_code (rv);
-   }
+            break;
+        default:
+            type_error (line);
+    }
+    if (vec) {
+        vdata* rv = new vdata (&seg, a);
+        rv->set_name ((char*) name.data ());
+        rv->set_datatype (2);
+        seg.insert_data (rv);
+        name.append ("_destination");
+        a = seg.image ()->get_word (a);
+    }
+    vcode* rv = new vcode (&seg, a);
+    rv->set_name ((char*) name.data ());
+    rv->set_datatype (2);
+    seg.insert_code (rv);
+}
 
-   return 0;
+int
+config_read (vsegment& seg, istream& in)
+{
+    int line = 0;
+
+    while (in.good () && !in.eof ())
+        config_read_line (seg, in, line);
+
+    return 0;
 }
