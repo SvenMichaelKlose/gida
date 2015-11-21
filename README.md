@@ -15,6 +15,18 @@ Try gida with the ROM, ripped from an ancient coke machine:
 
 Enjoy!
 
+# Building
+
+gida uses the GNU autotools to get built and installed.
+Accordingly, you need to have autoconf and automake installed.
+
+```
+autoreconf -i
+automake --add-missing
+./configure
+make
+```
+
 # The virtual chunk model
 
 Binaries are traced to set up a list of 'vchunk's. Each vchunk contains a

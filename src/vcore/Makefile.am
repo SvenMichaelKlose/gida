@@ -9,4 +9,4 @@ libgida_vcore_la_SOURCES = vchunk.cc \
 	vimage.cc \
 	vsegment.cc \
         vsubroutine.cc
-INCLUDES =              -I../../includes
+AM_CPPFLAGS = -I../../includes

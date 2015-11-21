@@ -1,25 +1,21 @@
 dnl Process this file with autoconf to produce a configure script.
+AC_PREREQ([2.69])
 AC_INIT
-AM_INIT_AUTOMAKE(gida,0.0.2)
-#AC_CONFIG_HEADER(includes/config.h)
-CXXFLAGS="-Wall -O2 -pipe"
-#CXXFLAGS="-Wall -O0 -pipe -g"
+AC_INIT([gida], [0.0.2], [pixel@hugbox.org])
+AM_INIT_AUTOMAKE([foreign])
 
+#AC_CONFIG_HEADER(includes/config.h)
+CXXFLAGS="-Wall -O3"
+AC_CONFIG_MACRO_DIR([m4])
 AM_PROG_LIBTOOL
 
 AC_SUBST(SUBDIRS)
-#AC_SUBST(STRIP)
 
 dnl Checks for programs.
-AC_CHECK_PROG(SHELL,sh)
-AC_CHECK_PROG(PERL,perl5 perl)
-#AC_CHECK_PROG(STRIP,strip)
-AC_PROG_AWK
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_CXX
 AC_PROG_INSTALL
-AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 
