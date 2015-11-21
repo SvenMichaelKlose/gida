@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([gida], [0.0.2], [pixel@hugbox.org])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([foreign])
 LT_INIT
 AC_CONFIG_SRCDIR([src/main.cc])
 AC_CONFIG_HEADERS([config.h])
