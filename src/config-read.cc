@@ -1,9 +1,9 @@
-#include "config.h"
-
+#include <stdlib.h>
 #include <string>
 
 #include "vcode.h"
 #include "vdata.h"
+#include "config-read.h"
 
 int hex2int (string& str)
 {

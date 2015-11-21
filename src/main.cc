@@ -1,10 +1,9 @@
-// $Id$
-//
-// Main file
-//
-// (c) 2002 Sven Klose <sven@devcon.net>
+// Copyright (c) 2015 Sven Michael Klose <sven@hugbox.org>
+
+#include <stdlib.h>
 
 #include "config.h"
+#include "config-read.h"
 #include "vop.h"
 #include "vdump.h"
 #include "vchunk.h"

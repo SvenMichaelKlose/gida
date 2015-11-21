@@ -1,3 +1,10 @@
+Release 0.0.3:
+
+2015/11/21:
+
+    - Updated to autotools-2.6.9.
+
+
 Release 0.0.2:
 
 2007/06/18:
@@ -6,11 +13,13 @@ Release 0.0.2:
     - Updated deprecated code.
     - Check for existing ROM file.
 
+
 Release 0.0.1:
 
 2002/06/16:
 
     - Added configuration file that must be provided per stdin.
+
 
 Release 0.0.0:
 

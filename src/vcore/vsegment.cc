@@ -1,8 +1,6 @@
-// $Id$
+// Copyright (c) 2002,2015 Sven Klose <sven@hugbox.org>
 //
 // Virtual program segment
-//
-// (c) 20002 Sven Klose <sven@devcon.net>
 //
 // About this file:
 //
@@ -11,6 +9,7 @@
 
 #include <fstream>
 
+#include "config.h"
 #include "vop.h"
 #include "vcpu.h"
 #include "vdump.h"
