@@ -1,0 +1,51 @@
+Release 0.0.2:
+
+2007/06/18:
+
+    - Updated to automake-1.5 and autoconf-2.6.1.
+    - Updated deprecated code.
+    - Check for existing ROM file.
+
+Release 0.0.1:
+
+2002/06/16:
+
+    - Added configuration file that must be provided per stdin.
+
+Release 0.0.0:
+
+2002/04/17:
+
+    - Inital C like version.
+
+2002/04/18:
+
+     - First tracing version in C++.
+
+2002/04/21:
+
+    - added recognition of subroutiness (vsubroutine)
+
+2002/04/22:
+
+    - added recognition of unsused code (vgap)
+
+2002/04/23:
+
+    - added vdumpers to be able to switch a chunk between code and data.
+      Dumpers display chunks.
+    - vcode and vdump are chunks with a default dumper.
+    - New vimage class holds binaries.
+
+2002/04/24:
+
+    - now using map instead of deque to speed up inserts
+    - labels are know all printed in class vdump
+    - chunks can have user defined names that are used as labels.
+    - vchunk_ptr is no longer used.
+
+2002/04/25:
+
+    - split cpu-independent and -dependent code
+    - Fixed subroutine count. Should reflect attachment to vsegment back
+      to vsubcoutine chunk to do the count.
