@@ -47,9 +47,9 @@ enum cpu_6800_adrgrp {
 
 // Instruction descriptor.
 typedef struct _cpu_6800_inst {
-    const char * mnem;
-    const char opcode;
-    const int modes;
+    const char *         mnem;
+    const unsigned char  opcode;
+    const int            modes;
 } cpu_6800_inst;  
 
 class cpu_6800 : public vcpu {
