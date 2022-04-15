@@ -32,11 +32,11 @@ print_help ()
 int
 main (int argc, char** argv)
 {
-    bool no_trace = false;
-    bool no_unreached_code = false;
-    vcpu* cpu = NULL;
-    vaddr offset = 0x8000;
-    const char * pathname_in = NULL;
+    bool no_trace           = false;
+    bool no_unreached_code  = false;
+    vcpu *        cpu = NULL;
+    vaddr         offset = 0x8000;
+    const char *  pathname_in = NULL;
 
     if (argc == 1)
         print_help ();
@@ -66,21 +66,18 @@ main (int argc, char** argv)
         cerr << "Couldn't find file '" << pathname_in << "'." << endl;
         exit (-1);
     }
-    vimage rom (infile, offset);
-    vsegment seg (&rom, cpu);
+    vimage image (infile, offset);
+    vsegment seg (&image, cpu);
     infile.close ();
 
-    // Process configuration file for image.
     config_read (seg, cin);
 
-    // Trace image.
     if (no_trace == false)
         seg.trace ();
 
     //if (no_unreached_code == false)
        //seg.trace_unreached ();
 
-    // Dump everything to stdout.
     seg.dump ();
 
     return 0;
