@@ -1,4 +1,4 @@
-// vsegment holds all vchunks for an vimage. It provides insert functions that
+// vsegment holds all vchunks for a vimage. It provides insert functions that
 // don't destroy the sort order.
 
 #include <fstream>
@@ -67,6 +67,7 @@ vsegment::_fill_gaps ()
         vaddr nstart = (j++)->second->start ();
         if (pend >= nstart)
             continue;
+
         vchunk * ch = new vgap (this, pend);
         ch->set_dumper (new vdump_code ());
         if (vchunk::is_valid_code (this, pend, nstart)) {
