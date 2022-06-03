@@ -204,11 +204,9 @@ void cpu_6800::create_opcode (const cpu_6800_inst * d)
 // Initialise. Create map of all opcodes.
 cpu_6800::cpu_6800 ()
 {
-    // Mark all opcodes as invalid.
     for (int i = 0; i < 256; i++)
         opcodemap[i].mnem = 0;
 
-    // Create opcode descriptors for each instruction.
     int instructions = sizeof (instab) / sizeof (cpu_6800_inst);
     for (int i = 0; i < instructions; i++)
         create_opcode (&instab[i]);
@@ -304,7 +302,6 @@ cpu_6800::disassemble_operand (vsegment * seg, vaddr & pc, cpu_6800_adrmode mode
     }
 }
 
-// Disassemble to plain text line.
 void
 cpu_6800::disassemble (vsegment * seg, vaddr & pc)
 {
@@ -329,11 +326,6 @@ cpu_6800::disassemble (vsegment * seg, vaddr & pc)
     cout << "\n";
 }
 
-// Get vop of instruction.
-//
-// v   Instruction descriptor.
-// seg Program segment to use.
-// pc  Program counter
 void
 cpu_6800::get_vop (vop & v, vsegment * seg, vaddr& pc)
 {
@@ -364,7 +356,6 @@ cpu_6800::get_vop (vop & v, vsegment * seg, vaddr& pc)
             break;
     }
 
-    // Add code chunks or mark instruction as branch.
     switch (c) {
         case opcode_jmp:
         case opcode_bra:
@@ -375,11 +366,6 @@ cpu_6800::get_vop (vop & v, vsegment * seg, vaddr& pc)
     }
 }
 
-// Analyse instruction.
-//
-// v   Instruction descriptor.
-// seg Program segment to use.
-// pc  Program counter
 void
 cpu_6800::analyze (vop & v, vsegment * seg, vaddr & pc)
 {
@@ -438,7 +424,6 @@ cpu_6800::analyze (vop & v, vsegment * seg, vaddr & pc)
         ch->set_datatype (opcode->datatype);
 }
 
-// Return pointer to one and only instance of this class.
 cpu_6800 *
 cpu_6800::instance ()
 {
