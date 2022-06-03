@@ -21,7 +21,7 @@ vdump_code::dump (vchunk * chunk)
         _last_type = true;
     }
 
-    if (pc < 0x8000)
+    if (pc < seg->image ()->start ())
         return;
 
     dump_codelabel (chunk);

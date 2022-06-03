@@ -54,7 +54,6 @@ vsegment::get_xref (vxref_map::iterator & begin, vxref_map::iterator & end, vadd
         end++;
 }
 
-// Fill gaps between chunks.
 void
 vsegment::_fill_gaps ()
 {
@@ -78,7 +77,6 @@ vsegment::_fill_gaps ()
     }
 }
 
-// Analyse all unprocessed chunks.
 void
 vsegment::trace ()
 {
@@ -88,7 +86,6 @@ vsegment::trace ()
     _fill_gaps ();
 }
 
-// Insert chunk into segment and keep sort order.
 bool
 vsegment::insert (vchunk * chunk, vaddr referrer)
 {

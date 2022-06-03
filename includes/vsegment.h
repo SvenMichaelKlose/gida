@@ -30,21 +30,13 @@ class vsegment {
         bool insert_data (vchunk * chunk, vaddr referrer = 0);
         bool insert_subroutine (vchunk * chunk, vaddr referrer = 0);
 
-        // Return CPU used in this segment.
         inline vcpu * cpu () { return _cpu; }
         inline vimage * image () { return _image; }
 
-        // Trace code in chunk until program counter is changed or an
-        // illegal instruction is reached.
         void trace ();
-
-        // Dump all chunks.
+        void mark_processed (vaddr start, vaddr end);
         void dump ();
 
-        // Mark chunks within range as processed.
-        void mark_processed (vaddr start, vaddr end);
-
-        // Find a chunk by address.
         vchunk * find (vaddr addr)
         {
             vchunk_map::iterator i = _map.lower_bound (addr);
@@ -53,17 +45,12 @@ class vsegment {
             return i->second;
         }
 
-        // Add xref to chunk.
         void add_xref (vaddr start, vaddr referrer);
-
-        // Get xrefs of chunk.
         void get_xref (vxref_map::iterator & begin, vxref_map::iterator & end, vaddr addr);
 
    private:
-        // Add a chunk.
         bool insert (vchunk * chunk, vaddr referrer);
 
-        // Get one of all yet unprocessed chunks.
         vchunk * get_unprocessed_chunk ();
 
         void _fill_gaps ();
