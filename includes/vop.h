@@ -1,5 +1,3 @@
-// Copyright (c) 2002 Sven Michael Klose <pixel@hugbox.org>
-
 #ifndef _VOP_H
 #define _VOP_H
 

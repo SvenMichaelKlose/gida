@@ -2,9 +2,9 @@
 //
 // Virtual program segment and related.
 //
-// A vsegment maps vchunk in ascending order by address. Each chunk is
+// A vsegment maps vchunks in ascending order by address.  Each chunk is
 // guaranteed to end at the start of the next chunk or at the end of the
-// currently used image. vchunks in a vsegment don't overlap.
+// currently used image.  vchunks in a vsegment don't overlap.
 // Don't set the end of a chunk on your own.
 
 #ifndef _VSEGMENT_H
@@ -56,7 +56,7 @@ class vsegment {
         // Add xref to chunk.
         void add_xref (vaddr start, vaddr referrer);
 
-        // Get xrefs to chunk.
+        // Get xrefs of chunk.
         void get_xref (vxref_map::iterator & begin, vxref_map::iterator & end, vaddr addr);
 
    private:

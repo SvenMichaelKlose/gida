@@ -1,9 +1,3 @@
-// Copyright (c) 20002 Sven Klose <sven@devcon.net>
-//
-// Virtual binary image.
-//
-// vimage holds a binary and provides machine-independet accessors.
-
 #include <algorithm>
 #include <functional>
 #include <iterator>
@@ -18,16 +12,18 @@
 #include "vimage.h"
 #include "vsubroutine.h"
 
-// Read in raw image and set CPU type.
 vimage::vimage (fstream & infile, vaddr offset)
 {
+    vaddr  p = offset;
+    char   c;
+
+    // TODO: Isn't there something like this in the stdlib? (pixel)
     _image = new char[6553600];
-    vaddr p = offset;
-    char c;
     while (!infile.eof ()) {
         infile.get (c);
         _image[p++] = c;
     }
+
     _start = offset;
     _end = p - 1;
 }

@@ -1,5 +1,3 @@
-// Copyright (c) 2002 Sven Michael Klose <pixel@hugbox.org>
-
 #include "vcode.h"
 #include "vdump_code.h"
 

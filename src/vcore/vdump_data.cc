@@ -1,9 +1,3 @@
-// Copyright (c) 2002 Sven Klose <sven@devcon.net>
-//
-// Data dumper for vchunks.
-//
-// vdump_data is a generic dumper for byte constants and ASCII strings.
-
 #include <fstream>
 #include <iomanip>
 
@@ -16,7 +10,6 @@
 #include "vdump_data.h"
 #include "vsegment.h"
 
-// Dump code or data depending on executable flag.
 void
 vdump_data::dump (vchunk * chunk)
 {
@@ -27,7 +20,7 @@ vdump_data::dump (vchunk * chunk)
 
     if (_last_type) {
         cout << endl 
-             << "; ### DATA ###########################################" << endl;
+             << "; ### DATA"<< endl;
         _last_type = false;
     }
 
@@ -43,10 +36,11 @@ vdump_data::dump (vchunk * chunk)
     char str[256];
     if (chunk->datatype () == 2) {
         while (pc < (tend - 1) && pc < 0x10000) {
-            vaddr tmp = pc;
-            char c1 = img->get (tmp);
-            char c2 = img->get (tmp);
-            unsigned int c = (unsigned int) img->get_word (pc);
+            vaddr     tmp = pc;
+            char      c1 = img->get (tmp);
+            char      c2 = img->get (tmp);
+            unsigned  c = (unsigned int) img->get_word (pc);
+
             if (cc != -1 && IS_ASCII(c1) && IS_ASCII(c2)) {
                 if (cc < 255) {
                     str[cc++] = c1;

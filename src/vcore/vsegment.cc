@@ -1,8 +1,4 @@
-// Copyright (c) 2002,2015 Sven Klose <sven@hugbox.org>
-//
-// Virtual program segment
-//
-// vsegment holds all vchunks for a vimage. It provides insert functions that
+// vsegment holds all vchunks for an vimage. It provides insert functions that
 // don't destroy the sort order.
 
 #include <fstream>
@@ -128,8 +124,6 @@ vsegment::insert (vchunk * chunk, vaddr referrer)
     return true;
 }
 
-// Add chunk to segment and list of unprocessed code and Increment code chunk
-// count.
 bool
 vsegment::insert_code (vchunk * code, vaddr referrer)
 {
@@ -142,7 +136,6 @@ vsegment::insert_code (vchunk * code, vaddr referrer)
     return ret;
 }
 
-// Add chunk to segment and increment data chunk count.
 bool
 vsegment::insert_data (vchunk * data, vaddr referrer)
 {
@@ -153,7 +146,6 @@ vsegment::insert_data (vchunk * data, vaddr referrer)
     return ret;
 }
 
-// Add subroutine chunk to segment.
 bool
 vsegment::insert_subroutine (vchunk * code, vaddr referrer)
 {
@@ -164,7 +156,6 @@ vsegment::insert_subroutine (vchunk * code, vaddr referrer)
     return ret;
 }
 
-// Find a chunk not yet processed by analyze().
 vchunk *
 vsegment::get_unprocessed_chunk ()
 {
@@ -175,7 +166,6 @@ vsegment::get_unprocessed_chunk ()
     return i->second;
 }
 
-// Remove chunks in range from list of unprocessed code.
 void
 vsegment::mark_processed (vaddr start, vaddr end)
 {
@@ -193,7 +183,6 @@ vsegment::mark_processed (vaddr start, vaddr end)
     }
 }
 
-// Dump all chunks.
 void
 vsegment::dump ()
 {

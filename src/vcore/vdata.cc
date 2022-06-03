@@ -1,5 +1,3 @@
-// Copyright (c) 2002 Sven Michael Klose <pixel@hugbox.org>
-
 #include "vchunk.h"
 #include "vdata.h"
 #include "vdump_data.h"

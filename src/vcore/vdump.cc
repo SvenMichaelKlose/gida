@@ -1,5 +1,3 @@
-// Copyright (c) 2002 Sven Michael Klose <pixel@hugbox.org>
-
 #include "vdump.h"
 #include "vchunk.h"
 #include "vsegment.h"

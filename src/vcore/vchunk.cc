@@ -1,7 +1,3 @@
-// Copyright (c) 2002 Sven Michael Klose <sven@hugbox.org>
-//
-// Virtual chunk
-
 #include <fstream>
 
 #include "vop.h"
@@ -14,7 +10,6 @@
 
 #include <stdio.h>
 
-// Dump code or data depending on executable flag.
 bool
 vchunk::is_asciiz ()
 {

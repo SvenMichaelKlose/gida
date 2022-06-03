@@ -1,8 +1,3 @@
-// Copyright (c) 2002 Sven Michael Klose <sven@hugbox.org>
-//
-// vgap prints an extra label for unreferenced vchunks. This could be replaced
-// by a common reference map.
-
 #include <fstream>
 
 #include "vop.h"
@@ -17,13 +12,13 @@
 void
 vgap::dump ()
 {
-    cout << "\n; !!! NOT REACHED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl
+    cout << "\n; !!! NOT REACHED !!!" << endl
          << ";" << endl
          << "; The following " << end () - start ()
-         << " bytes are not accessed by any displayed code." << endl;
+         << " bytes are not accessed." << endl;
 
     vchunk::dump ();
 
-    cout << "; !!! END OF GAP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-         << endl << endl;
+    cout << "; !!! END OF GAP !!!" << endl
+         << endl;
 }

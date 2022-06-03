@@ -1,5 +1,3 @@
-// Copyright (c) 2002,2015 Sven Klose <sven@devcon.net> 2002/04/16
-
 using namespace std;
 
 #include <fstream>
@@ -387,22 +385,20 @@ cpu_6800::analyze (vop & v, vsegment * seg, vaddr & pc)
 {
     vimage * img = seg->image ();
     vaddr strt = pc;
-    get_vop (v, seg, strt);
-    strt = pc;
-
     unsigned char c;
 
-    c = img->get (pc);
-    cpu_6800_opcode * opcode = &opcodemap[c];
-
+    get_vop (v, seg, strt);
     if (v.is_invalid ())
         return;
 
-    unsigned char b;
-    signed char d;
-    vaddr w = 0;
+    strt = pc;
+    c = img->get (pc);
+    cpu_6800_opcode * opcode = &opcodemap[c];
 
-    vchunk * ch = 0;
+    unsigned char b;
+    char d;
+    vaddr w = 0;
+    vchunk * ch = NULL;
     switch (opcode->mode) {
         case immediate8:
             b = img->get (pc);

@@ -1,9 +1,3 @@
-// Copyright (c) 2002 Sven Klose <sven@devcon.net>
-//
-// Virtual subroutine vchunk.
-//
-// This vchunk prints extra comments for its subroutne vchunk.
-
 #include <fstream>
 #include <map>
 
@@ -26,7 +20,7 @@ void
 vsubroutine::dump ()
 {
     cout << "\n"
-         << "; ### SUBROUTINE #############################################\n"
+         << "; ### SUBROUTINE" << endl
          << ";" << endl;
 
     vchunk::dump ();
