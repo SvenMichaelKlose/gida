@@ -12,35 +12,40 @@ vdump::dump_hexlabel (char type, vchunk* chunk)
         cout << *s;
         return;
     }
+
     cout << type << "_";
+
     dump_hex (chunk->start (), 4);
 }
 
 void
 vdump::xref_list (vchunk* chunk)
 {
-    vsegment *  seg = chunk->segment ();
-    vaddr       strt = chunk->start ();
-    vxref_map::iterator i;
-    vxref_map::iterator end;
-
+    vaddr  strt = chunk->start ();
     if (!strt) {
         cout << endl;
         return;
     }
 
+    vsegment *  seg = chunk->segment ();
+    vxref_map::iterator i;
+    vxref_map::iterator end;
     seg->get_xref (i, end, strt);
 
     if (i != end && i->first == strt)
         cout << "               ; XREFS:";
+
     while (i != end && i->first == strt) {
         cout << " ";
+
         vchunk * ch = seg->find (i->second);
         if (ch)
             ch->dumper ()->label (ch);
         else
             dump_hexword (i->second);
+
         i++;
    }
+
    cout << endl;
 }
