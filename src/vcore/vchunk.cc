@@ -22,10 +22,12 @@ vchunk::is_asciiz ()
 
     while (pc < tend && pc < imgend) {
         char c = img->get (pc);
+
         if (!c)
             return n ? true : false;
         if (!IS_ASCII(c))
             return false;
+
         n++;
     }
 
@@ -41,6 +43,7 @@ vchunk::is_valid_code (vsegment* seg, vaddr & pc, vaddr & end)
     while (pc < end && pc < imgend) {
         vop v;
         cpu->get_vop (v, seg, pc);
+
         if (v.is_branch ())
             return true;
         if (v.is_invalid ())
@@ -78,13 +81,12 @@ vchunk::trace ()
     while (pc < origend && pc < imgend) {
        vop v;
        cpu->analyze (v, seg, pc);
+
        if (v.is_branch () || v.is_invalid ())
            break;
     }
 
-    // Correct end if there's a gap.
-    if (end () > pc)
-        set_end (pc);
+    set_end (pc);
 
     seg->mark_processed (pos, pc);
 }
