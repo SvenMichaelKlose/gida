@@ -1,5 +1,3 @@
-// Copyright (c) 2002,2015 Sven Michael Klose <pixel@hugbox.org>
-
 #ifndef _CPU_6800_H
 #define  _CPU_6800_H
 
@@ -57,7 +55,7 @@ class cpu_6800 : public vcpu {
         static cpu_6800 * instance ();
 
         const char * name () { return "6800 family"; }
-        const char * vendor () { return "MOS Technology"; }
+        const char * vendor () { return "Motorola"; }
         const char * classtype () { return "Microprocessor (8 bit/64k address space)"; }
 
         void get_vop (vop & v, vsegment * seg, unsigned long & pc);
