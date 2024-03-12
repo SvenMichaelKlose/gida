@@ -2,9 +2,8 @@
 //
 // Virtual program segment and related.
 //
-// A vsegment maps vchunks in ascending order by address.  Each chunk is
-// guaranteed to end at the start of the next chunk or at the end of the
-// currently used image.  vchunks in a vsegment don't overlap.
+// A vsegment maps vchunks ordered by address.  They are
+// guaranteed to not overlap.
 // Don't set the end of a chunk on your own.
 
 #ifndef _VSEGMENT_H
@@ -59,6 +58,10 @@ class vsegment {
         vcpu *      _cpu;
         vchunk_map  _map;
         vchunk_map  _unprocessed_code;
+
+        // TOOD: If anyone really wants to know count them outside this class.
+        // Also make insert() overloaded instead of insert_code(), insert_data
+        // and insert_subroutine(). (pixel)
         int _code_labels;
         int _data_labels;
         int _subroutines;
