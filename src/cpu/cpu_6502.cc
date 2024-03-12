@@ -311,9 +311,6 @@ struct operand_string {
     { NULL, 0 }
 };
 
-// The one and only instance of cpu_6502.
-cpu_6502 * cpu_6502::_instance;
-
 const char *
 print_operand_string (struct operand_string * s, int addrmode)
 {
@@ -446,13 +443,4 @@ cpu_6502::analyze (vop& v, vsegment * seg, vaddr& pc)
         ch->set_datatype (1);
     else if (i->addrmode & WORD_AMS)
         ch->set_datatype (2);
-}
-
-// Return pointer to one and only instance of this class.
-cpu_6502 *
-cpu_6502::instance ()
-{
-   if (_instance)
-       return _instance;
-   return _instance = new cpu_6502 ();
 }

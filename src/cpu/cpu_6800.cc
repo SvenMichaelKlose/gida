@@ -12,11 +12,6 @@ using namespace std;
 #include "vsubroutine.h"
 #include "cpu_6800.h"
 
-// The one and only instance of cpu_6800.
-cpu_6800 * cpu_6800::_instance;
-
-//////////////////////////////////////////////////////////////////////
-
 // Create opcode from base and offset.
 #define OPCODE(base,offset) ((unsigned char) (base - offset))
 
@@ -422,12 +417,4 @@ cpu_6800::analyze (vop & v, vsegment * seg, vaddr & pc)
     }
     if (ch)
         ch->set_datatype (opcode->datatype);
-}
-
-cpu_6800 *
-cpu_6800::instance ()
-{
-    if (_instance)
-        return _instance;
-    return _instance = new cpu_6800 ();
 }

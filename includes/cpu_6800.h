@@ -52,8 +52,7 @@ typedef struct _cpu_6800_inst {
 
 class cpu_6800 : public vcpu {
     public:
-        static cpu_6800 * instance ();
-
+        cpu_6800 ();
         const char * name () { return "6800 family"; }
         const char * vendor () { return "Motorola"; }
         const char * classtype () { return "Microprocessor (8 bit/64k address space)"; }
@@ -63,9 +62,6 @@ class cpu_6800 : public vcpu {
         void disassemble (vsegment * seg, unsigned long & pc);
 
     private:
-        cpu_6800 ();
-        static cpu_6800 * _instance;
-
         void create_opcode (const cpu_6800_inst *);
         void disassemble_operand (vsegment * seg, unsigned long & pc, cpu_6800_adrmode mode);
 };

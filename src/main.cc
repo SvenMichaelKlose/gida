@@ -44,9 +44,9 @@ main (int argc, char** argv)
     int a;
     for (a = 1; a < argc; a++) {
          if (!strcmp (argv[a], "-6502"))
-             cpu = cpu_6502::instance ();
+             cpu = new cpu_6502 ();
          else if (!strcmp (argv[a], "-6800"))
-             cpu = cpu_6800::instance ();
+             cpu = new cpu_6800 ();
          else
              break;
     }

@@ -8,7 +8,7 @@
 class cpu_6502 : public vcpu {
 
     public:
-        static cpu_6502 * instance ();
+        cpu_6502 () {}
 
         const char * name () { return "6502"; }
         const char * vendor () { return "MOS Technology"; }
@@ -17,10 +17,6 @@ class cpu_6502 : public vcpu {
         void get_vop (vop & v, vsegment * seg, unsigned long & pc);
         void analyze (vop & v, vsegment * seg, unsigned long & pc);
         void disassemble (vsegment * seg, unsigned long & pc);
-
-    private:
-        cpu_6502 () {}
-        static cpu_6502 * _instance;
 };
 
 #endif // _CPU_6502_H
