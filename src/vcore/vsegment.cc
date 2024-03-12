@@ -35,11 +35,11 @@ vsegment::add_xref (vaddr start, vaddr referrer)
     vxref_map::iterator i = xref_map.lower_bound (start);
 
     // Skip doubles.
-    while (i != xend && i->first == start)
+    while (i != xend && i->first == start) {
         if (i->second == referrer)
             return;
-        else
-            i++;
+        i++;
+    }
 
     xref_map.insert (i, vxref_map::value_type (start, referrer));
 }
@@ -48,8 +48,8 @@ void
 vsegment::get_xref (vxref_map::iterator & begin, vxref_map::iterator & end, vaddr addr)
 {
     vxref_map::iterator xend = xref_map.end ();
-    begin = end = xref_map.lower_bound (addr);
 
+    begin = end = xref_map.lower_bound (addr);
     while (end != xend && end->first == addr)
         end++;
 }
@@ -82,7 +82,6 @@ vsegment::trace ()
 {
     while (vchunk * chunk = get_unprocessed_chunk ())
        chunk->trace ();
-
     _fill_gaps ();
 }
 
